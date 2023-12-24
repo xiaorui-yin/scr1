@@ -69,7 +69,7 @@ build_vcs: $(sv_list)
 
 build_ncsim: $(sv_list)
 	cd $(bld_dir); \
-	irun \
+	xrun \
 	-elaborate \
 	-64bit \
 	-disable_sem2009 \

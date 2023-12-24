@@ -1,0 +1,97 @@
+# The confidential and proprietary information contained in this file may
+# only be used by a person authorised under and to the extent permitted
+# by a subsisting licensing agreement from PIMCHIP TECH.
+#
+#            (C) COPYRIGHT 2023~2023 PIMCHIP TECH.
+#                     ALL RIGHTS RESERVED
+#
+#           /^v^\         |    |    |
+#                        )_)  )_)  )_)     /^v^\
+#              /^v^\    )___X)___))___)Y
+#                      )____)____)_____)\
+#                    _____|____|____I____\\__
+#                    \                   /
+#        ^^^^^ ^^^^^^^^  ^^^^^ ^^^^^  ^^^^^ ^^^^ <><
+#          ^^^^  ^^  ^^^    ^ ^^^    ^^^ <>< ^^^^
+#           ><> ^^^     ^^    ><> ^^     ^^    N
+#
+# Author: Xiaorui Yin <xiaorui.yin@pimchip.cn>
+# Description:
+# Bender Source Files Control
+
+package:
+  name: npu 
+  authors:
+    - "Xiaorui Yin <xiaorui.yin@pimchip.cn>"
+
+# dependencies:
+#   axi:            {git: "https://",       version: 0.22.1 }
+#   common:         {git: "https://",       rev: port_ab    }
+
+workspace:
+  checkout_dir: "deps"
+
+export_include_dirs:
+  - src/includes
+
+sources:
+  files:
+    - src/core/pipeline/scr1_pipe_hdu.sv
+    - src/core/pipeline/scr1_pipe_tdu.sv
+    - src/core/pipeline/scr1_ipic.sv
+    - src/core/pipeline/scr1_pipe_csr.sv
+    - src/core/pipeline/scr1_pipe_exu.sv
+    - src/core/pipeline/scr1_pipe_ialu.sv
+    - src/core/pipeline/scr1_pipe_idu.sv
+    - src/core/pipeline/scr1_pipe_ifu.sv
+    - src/core/pipeline/scr1_pipe_lsu.sv
+    - src/core/pipeline/scr1_pipe_mprf.sv
+    - src/core/pipeline/scr1_pipe_top.sv
+    - src/core/primitives/scr1_reset_cells.sv
+    - src/core/primitives/scr1_cg.sv
+    - src/core/scr1_clk_ctrl.sv
+    - src/core/scr1_tapc_shift_reg.sv
+    - src/core/scr1_tapc.sv
+    - src/core/scr1_tapc_synchronizer.sv
+    - src/core/scr1_core_top.sv
+    - src/core/scr1_dm.sv
+    - src/core/scr1_dmi.sv
+    - src/core/scr1_scu.sv
+    # - src/top/scr1_dmem_router.sv
+    # - src/top/scr1_imem_router.sv
+    # - src/top/scr1_dp_memory.sv
+    # - src/top/scr1_tcm.sv
+    # - src/top/scr1_timer.sv
+    # - src/top/scr1_mem_axi.sv
+    # - src/top/scr1_top_axi.sv
+    - target: axi_top
+      files:
+        - pd/src/scr1_dp_memory.sv
+        # - src/top/scr1_dp_memory.sv
+        - src/top/scr1_dmem_router.sv
+        - src/top/scr1_imem_router.sv
+        - src/top/scr1_tcm.sv
+        - src/top/scr1_timer.sv
+        - src/top/scr1_mem_axi.sv
+        - src/top/scr1_top_axi.sv
+
+        - target: axi_tb
+          files:
+            - src/core/pipeline/scr1_tracelog.sv
+            - src/tb/scr1_memory_tb_axi.sv
+            - src/tb/scr1_top_tb_axi.sv
+    - target: ahb_top
+      files:
+        - src/top/scr1_dmem_router.sv
+        - src/top/scr1_imem_router.sv
+        - src/top/scr1_dp_memory.sv
+        - src/top/scr1_tcm.sv
+        - src/top/scr1_timer.sv
+        - src/top/scr1_dmem_ahb.sv
+        - src/top/scr1_imem_ahb.sv
+        - src/top/scr1_top_ahb.sv
+        - target: ahb_tb
+          files:
+            - src/core/pipeline/scr1_tracelog.sv
+            - src/tb/scr1_memory_tb_ahb.sv
+            - src/tb/scr1_top_tb_ahb.sv
